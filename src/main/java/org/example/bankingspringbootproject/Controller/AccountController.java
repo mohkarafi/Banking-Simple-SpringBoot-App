@@ -53,7 +53,7 @@ public class AccountController {
         accountService.CreateAccounts(accountDtos);
         return ResponseEntity.ok(accountDtos);
   }
-  @DeleteMapping("/{id}/delete")
+  @DeleteMapping("/{id}/delet")
   public ResponseEntity<String>DeleteAccount(@PathVariable Long id){
         accountService.DeleteAccount(id);
         return ResponseEntity.ok("Account deleting successfully ");
