@@ -25,7 +25,7 @@ public class AccountController {
         return new ResponseEntity<>(accountService.CreateAccount(accountDto) , HttpStatus.CREATED);
   }
 
-  @PutMapping("/{id}/koko")
+  @PutMapping("/{id}/Savec")
   public ResponseEntity<AccountDto>WithdrawAccount(@PathVariable Long id , @RequestBody Map<String , Double> request){
         AccountDto accountDto = accountService.Withdraw(id ,request.get("amount"));
         return  ResponseEntity.ok(accountDto);
