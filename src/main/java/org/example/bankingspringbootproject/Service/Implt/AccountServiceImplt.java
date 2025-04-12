@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class AccountServiceImplt implements AccountService {
-    AccountRepo accountRepo;
+    private AccountRepo accountRepo;
    @Autowired
    public AccountServiceImplt(AccountRepo accountRepo) {
        this.accountRepo = accountRepo;
