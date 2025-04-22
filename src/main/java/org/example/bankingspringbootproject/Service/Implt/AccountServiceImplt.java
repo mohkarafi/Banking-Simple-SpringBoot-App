@@ -4,6 +4,7 @@ import org.example.bankingspringbootproject.Dto.AccountDto;
 import org.example.bankingspringbootproject.Model.Account;
 import org.example.bankingspringbootproject.Repository.AccountRepo;
 import org.example.bankingspringbootproject.Service.AccountService;
+import org.example.bankingspringbootproject.exception.AccountException;
 import org.example.bankingspringbootproject.mapper.AccountMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -31,13 +32,13 @@ public class AccountServiceImplt implements AccountService {
 
     @Override
     public AccountDto getAccountById(Long id) {
-        Account account = accountRepo.findById(id).orElseThrow(() -> new RuntimeException("Account not found "));
+        Account account = accountRepo.findById(id).orElseThrow(() -> new AccountException("Account not found "));
         return AccountMapper.mapToAccountDto(account);
     }
 
     @Override
     public AccountDto Deposit(Long id, double amount) {
-        Account account = accountRepo.findById(id).orElseThrow(() -> new RuntimeException("Account not found "));
+        Account account = accountRepo.findById(id).orElseThrow(() -> new AccountException("Account not found "));
        account.setBalance(account.getBalance() + amount);
        Account SavedAccount = accountRepo.save(account);
        return AccountMapper.mapToAccountDto(SavedAccount);
@@ -45,7 +46,7 @@ public class AccountServiceImplt implements AccountService {
 
     @Override
     public AccountDto Withdraw(Long id, double amount) {
-       Account account =  accountRepo.findById(id).orElseThrow(()-> new RuntimeException("Account not found "));
+       Account account =  accountRepo.findById(id).orElseThrow(()-> new AccountException("Account not found "));
         if(account.getBalance() < amount){
             throw new RuntimeException("Insufficient balance");
         }
@@ -73,7 +74,7 @@ public class AccountServiceImplt implements AccountService {
 
     @Override
     public AccountDto DeleteAccount(Long id) {
-        Account account = accountRepo.findById(id).orElseThrow(() -> new RuntimeException("Account not found "));
+        Account account = accountRepo.findById(id).orElseThrow(() -> new AccountException("Account not found "));
         accountRepo.deleteById(id);
         return AccountMapper.mapToAccountDto(account);
     }
